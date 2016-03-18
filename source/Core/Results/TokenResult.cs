@@ -59,8 +59,7 @@ namespace IdentityServer3.Core.Results
                 access_token = _response.AccessToken,
                 refresh_token = _response.RefreshToken,
                 expires_in = _response.AccessTokenLifetime,
-                token_type = _response.TokenType,
-                alg = _response.Algorithm
+                token_type = Constants.TokenTypes.Bearer
             };
 
             var jobject = JObject.FromObject(dto, Serializer);
@@ -97,7 +96,6 @@ namespace IdentityServer3.Core.Results
             public int expires_in { get; set; }
             public string token_type { get; set; }
             public string refresh_token { get; set; }
-            public string alg { get; set; }
         }    
     }
 }

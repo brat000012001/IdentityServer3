@@ -175,17 +175,6 @@ namespace IdentityServer3.Tests.Conformance
             return response;
         }
 
-        public static HttpResponseMessage Introspect(this IdentityServerHost host, string scopeName, string scopeSecret, string token)
-        {
-            var form = new Dictionary<string, string>();
-            form.Add("token", token);
-
-            host.Client.SetBasicAuthentication(scopeName, scopeSecret);
-
-            var response = host.Client.PostAsync(host.GetIntrospectionUrl(), new FormUrlEncodedContent(form)).Result;
-            return response;
-        }
-
         public static HttpResponseMessage PostJson<T>(this IdentityServerHost host, string path, T value)
         {
             return host.Client.PostAsJsonAsync(path, value).Result;
@@ -277,12 +266,7 @@ namespace IdentityServer3.Tests.Conformance
         {
             return host.Url.EnsureTrailingSlash() + Constants.RoutePaths.Oidc.Token;
         }
-
-        public static string GetIntrospectionUrl(this IdentityServerHost host)
-        {
-            return host.Url.EnsureTrailingSlash() + Constants.RoutePaths.Oidc.Introspection;
-        }
-
+        
         public static string GetUserInfoUrl(this IdentityServerHost host)
         {
             return host.Url.EnsureTrailingSlash() + Constants.RoutePaths.Oidc.UserInfo;

@@ -46,11 +46,11 @@ namespace IdentityServer3.Core.Endpoints
         private readonly IOwinContext _context;
         private readonly ISigningKeyService _keyService;
 
-        static readonly JsonSerializer Serializer = new JsonSerializer
+        static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore
         };
-
+        
         public DiscoveryEndpointController(IdentityServerOptions options, IScopeStore scopes, IOwinContext context, ISigningKeyService keyService, CustomGrantValidator customGrants)
         {
             _options = options;
@@ -152,8 +152,7 @@ namespace IdentityServer3.Core.Endpoints
             {
                 if (_options.Endpoints.EnableEndSessionEndpoint)
                 {
-                    dto.frontchannel_logout_supported = true;
-                    dto.frontchannel_logout_session_supported = true;
+                    dto.http_logout_supported = true;
                 }
 
                 if (_options.Endpoints.EnableAuthorizeEndpoint)
@@ -200,7 +199,7 @@ namespace IdentityServer3.Core.Endpoints
                 }
             }
 
-            var jobject = JObject.FromObject(dto, Serializer);
+            var jobject = JObject.FromObject(dto);
 
             // custom entries
             if (_options.DiscoveryOptions.CustomEntries != null && _options.DiscoveryOptions.CustomEntries.Any())
@@ -276,8 +275,7 @@ namespace IdentityServer3.Core.Endpoints
             public string check_session_iframe { get; set; }
             public string revocation_endpoint { get; set; }
             public string introspection_endpoint { get; set; }
-            public bool? frontchannel_logout_supported { get; set; }
-            public bool? frontchannel_logout_session_supported { get; set; }
+            public bool? http_logout_supported { get; set; }
             public string[] scopes_supported { get; set; }
             public string[] claims_supported { get; set; }
             public string[] response_types_supported { get; set; }

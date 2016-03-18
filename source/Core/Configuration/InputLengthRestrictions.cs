@@ -50,7 +50,6 @@ namespace IdentityServer3.Core.Configuration
             CodeChallengeMaxLength = 128;
             CodeVerifierMinLength = 43;
             CodeVerifierMaxLength = 128;
-            ProofKey = 2048;
         }
 
         /// <summary>
@@ -162,10 +161,5 @@ namespace IdentityServer3.Core.Configuration
         /// Max length for the code verifier
         /// </summary>
         public int CodeVerifierMaxLength { get; private set; }
-
-        /// <summary>
-        /// Max length for proof keys
-        /// </summary>
-        public int ProofKey { get; set; }
     }
 }
