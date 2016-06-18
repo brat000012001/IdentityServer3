@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2014 Dominick Baier, Brock Allen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,21 +62,8 @@ namespace Owin
                     AuthenticationOptions = new AuthenticationOptions
                     {
                         IdentityProviders = ConfigureIdentityProviders,
-                        EnablePostSignOutAutoRedirect = true
+                        EnableAutoCallbackForFederatedSignout = true
                     },
-
-                    //LoggingOptions = new LoggingOptions
-                    //{
-                    //    EnableKatanaLogging = true
-                    //},
-
-                    //EventsOptions = new EventsOptions
-                    //{
-                    //    RaiseFailureEvents = true,
-                    //    RaiseInformationEvents = true,
-                    //    RaiseSuccessEvents = true,
-                    //    RaiseErrorEvents = true
-                    //}
                 };
 
                 coreApp.UseIdentityServer(idsrvOptions);
@@ -128,9 +115,8 @@ namespace Owin
 
                 Authority = "https://login.windows.net/4ca9cb4c-5e5f-4be9-b700-c532992a3705",
                 ClientId = "65bbbda8-8b85-4c9d-81e9-1502330aacba",
-                RedirectUri = "https://localhost:44333/core/aadcb"
+                RedirectUri = "https://localhost:44333/core/aadcb",
             };
-
             app.UseOpenIdConnectAuthentication(aad);
 
             var adfs = new WsFederationAuthenticationOptions
